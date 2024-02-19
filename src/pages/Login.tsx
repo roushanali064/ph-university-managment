@@ -1,18 +1,20 @@
-import { Button } from "antd";
-import { FieldValues, useForm } from 'react-hook-form'
+import { Button, Row } from "antd";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/feature/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { useAppDispatch } from "../redux/hooks";
 import { TUser, setUser } from "../redux/feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForum from "../components/form/PHFroum";
+import PHInput from "../components/form/PHInput";
 const Login = () => {
-    const navigate = useNavigate()
-    const {register, handleSubmit} = useForm();
-    const [login] = useLoginMutation();
-    const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
 
-    const onSubmit = async (data: FieldValues) =>{
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
         const tostID = toast('Logging In')
         const userInfo = {
             id: data.id,
@@ -28,21 +30,18 @@ const Login = () => {
         }catch(err){
             toast('something wen wrong',{id: tostID, duration: 2000})
         }
-    }
+  };
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label htmlFor="id">ID:</label>
-                <input type="text" id="id" {...register('id')}/>
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input type="text" id="password" {...register('password')}/>
-            </div>
-            <Button htmlType="submit">Login</Button>
-        </form>
-    );
+  return (
+    <Row justify={'center'} align={'middle'} style={{height: '100vh'}}>
+      <PHForum onSubmit={onSubmit}>
+          <PHInput type={"text"} name={"id"} label={"ID:"} />
+        
+          <PHInput type={"text"} name={"password"} label={"Password"} />
+        <Button htmlType="submit">Login</Button>
+      </PHForum>
+    </Row>
+  );
 };
 
 export default Login;
