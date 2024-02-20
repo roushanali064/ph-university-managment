@@ -10,7 +10,6 @@ const AcademicFaculty = () => {
   const [params, setParam] = useState<TQueryPArams[] | undefined>(undefined);
   const { data: academicFaculties, isFetching } =
     useGetAllAcademicFacultyQuery(params);
-  console.log(academicFaculties?.data);
 
   const tableData = academicFaculties?.data?.map(({ _id, name }) => ({
     key: _id,
@@ -32,9 +31,9 @@ const AcademicFaculty = () => {
   ];
 
   const onChange: TableProps<TTableData>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
     if (extra.action === "filter") {
