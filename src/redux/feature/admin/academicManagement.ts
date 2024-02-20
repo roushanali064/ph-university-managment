@@ -1,24 +1,28 @@
-import { TAcademicSemester, TQueryPArams, TReduxResponse } from "../../../types";
+import {
+  TAcademicSemester,
+  TQueryPArams,
+  TReduxResponse,
+} from "../../../types";
+import { TAcademicFAculty } from "../../../types/academicFaculty.type";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAcademicSemester: builder.query({
       query: (args) => {
-
         const params = new URLSearchParams();
 
-        if(args){
-            args.forEach((item: TQueryPArams) => (
-                params.append(item.name, item.value as string)
-            ));
+        if (args) {
+          args.forEach((item: TQueryPArams) =>
+            params.append(item.name, item.value as string)
+          );
         }
 
         return {
-            url: "/academic-semester",
-            method: "GET",
-            params: params
-          }
+          url: "/academic-semester",
+          method: "GET",
+          params: params,
+        };
       },
       transformResponse: (res: TReduxResponse<TAcademicSemester[]>) => {
         return {
@@ -41,11 +45,35 @@ const academicManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    getAllAcademicFaculty: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryPArams) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+
+        return {
+          url: "/academic-faculties",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (res: TReduxResponse<TAcademicFAculty[]>) => {
+        return {
+          meta: res?.meta,
+          data: res?.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { 
+export const {
   useGetAcademicSemesterQuery,
-   useAddAcademicSemesterMutation,
-   useAddAcademicFacultyMutation
-   } =academicManagementApi;
+  useAddAcademicSemesterMutation,
+  useAddAcademicFacultyMutation,
+  useGetAllAcademicFacultyQuery,
+} = academicManagementApi;
