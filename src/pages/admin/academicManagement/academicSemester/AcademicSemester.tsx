@@ -7,7 +7,7 @@ export type TTableDAta = Pick<TAcademicSemester, 'name' | 'year' | 'startMonth' 
 
 const AcademicSemester = () => {
   const [param, setParam] = useState<TQueryPArams[] | undefined>(undefined)
-  const { data: semesterData } = useGetAcademicSemesterQuery(param);
+  const { data: semesterData, isFetching } = useGetAcademicSemesterQuery(param);
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, year, startMonth, endMonth }) => ({
@@ -90,7 +90,7 @@ const AcademicSemester = () => {
   };
 
   return (
-    <Table columns={columns} dataSource={tableData} onChange={onChange} />
+    <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />
   );
 };
 
