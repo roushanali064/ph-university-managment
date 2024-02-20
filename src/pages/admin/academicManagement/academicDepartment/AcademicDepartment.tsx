@@ -1,9 +1,42 @@
+import { Table, TableColumnsType } from "antd";
+import { useGetAllAcademicDepartmentQuery } from "../../../../redux/feature/admin/academicManagement";
+import { TAcademicDepartment } from "../../../../types/academicDepartment.type";
+
+type TTableData = {
+    name: string;
+    academicFaculty: string
+}
 
 const AcademicDepartment = () => {
+    const {data: academicDepartment, isFetching} = useGetAllAcademicDepartmentQuery(undefined)
+    console.log(academicDepartment?.data);
+
+    const tableData = academicDepartment?.data?.map((item: TAcademicDepartment)=>({
+        key: item._id,
+        name: item.name,
+        academicFaculty: item.academicFaculty.name
+    }))
+
+    const columns: TableColumnsType<TTableData> = [
+        {
+          title: "Name",
+          dataIndex: "name",
+          key: "name",
+        },
+        {
+          title: "Academic Faculty",
+          dataIndex: "academicFaculty",
+          key: "academicFaculty",
+        },
+      ];
+
+
     return (
-        <div>
-            
-        </div>
+        <Table
+      loading={isFetching}
+      columns={columns}
+      dataSource={tableData}
+    />
     );
 };
 
