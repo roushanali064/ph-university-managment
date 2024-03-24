@@ -19,7 +19,7 @@ const MainLayout = () => {
       <Sidebar/>
       <Layout>
         <Header>
-          <Button onClick={handleLogout}>Log Out</Button>
+          <Button  onClick={handleLogout}>Log Out</Button>
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div

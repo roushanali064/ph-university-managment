@@ -31,3 +31,5 @@ export type TQueryPArams = {
     name: string;
     value: boolean | React.Key
 }
+
+export type TUserRole = 'admin'| 'faculty' | 'student'

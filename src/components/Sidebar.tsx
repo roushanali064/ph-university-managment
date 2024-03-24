@@ -18,7 +18,6 @@ const userRole = {
 const Sidebar = () => {
   const user = useAppSelector(currentUser);
   let sidebarItems;
-  console.log(sidebarItems);
 
   switch (user!.role) {
     case userRole.ADMIN:
@@ -36,7 +35,7 @@ const Sidebar = () => {
     <Sider
     breakpoint="lg"
     collapsedWidth="0"
-    style={{height: '100vh', position: 'static', top: '0', left: '0'}}
+    style={{height: '100vh', position: 'sticky', top: '0', left: '0'}}
     >
       <div
         style={{

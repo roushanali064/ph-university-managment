@@ -9,7 +9,6 @@ type TTableData = {
 
 const AcademicDepartment = () => {
     const {data: academicDepartment, isFetching} = useGetAllAcademicDepartmentQuery(undefined)
-    console.log(academicDepartment?.data);
 
     const tableData = academicDepartment?.data?.map((item: TAcademicDepartment)=>({
         key: item._id,
